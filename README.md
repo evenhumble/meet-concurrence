@@ -1,3 +1,3 @@
 # Meet-Concurrence
 
-[status](https://travis-ci.org/evenhumble/meet-concurrency.svg?branch=master)
+Build Status: ![img](https://travis-ci.org/evenhumble/meet-concurrence.svg?branch=master)
