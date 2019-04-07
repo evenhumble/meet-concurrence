@@ -7,3 +7,6 @@ then you may find it is not that easy than you origin thinking.
 
 ## Thread State
 
+The overall thread state:
+
+![img](img/thread-state.png)
