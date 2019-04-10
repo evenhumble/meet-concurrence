@@ -4,13 +4,13 @@ package io.hedwig.concurrence.basic.pubsub.demo;
 import static io.hedwig.concurrence.basic.utils.MTUtil.sleep;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author: patrick on 2019-04-10
@@ -20,32 +20,38 @@ public class JobMaster {
 
   public  boolean jobStatus = false;
   public int FROM_POSITION = 0;
-  public int batchSize = 30;
+  public int batchSize = 300;
   public ConcurrentLinkedQueue<Map<String, Object>> queue = new ConcurrentLinkedQueue<>();
   ExecutorService es;
+  List<Map<String,Object>> overall = new LinkedList();
   private static CountDownLatch latch = new CountDownLatch(5);
 
   public class FetchDataWorker extends Thread {
 
     @Override
     public void run() {
-      while (jobStatus) {
-        if (!queue.isEmpty()) {
-          System.out.println("fetch data thread is alive");
+      while (jobStatus && FROM_POSITION < 10000) {
+//        if (!queue.isEmpty()) {
+//          System.out.println("fetch data thread is alive");
+//          try {
+//            sleep(30);
+//          } catch (InterruptedException e) {
+//            e.printStackTrace();
+//          }
+//        } else {
           try {
-            sleep(30);
+              sleep(30);
           } catch (InterruptedException e) {
-            e.printStackTrace();
+              e.printStackTrace();
           }
-        } else {
           FROM_POSITION += batchSize;
           for (int i = 0; i < batchSize; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put(String.valueOf(i), new Object());
-            queue.add(map);
+            queue.offer(map);
           }
 
-        }
+//        }
       }
       while (!queue.isEmpty()){
         try {
@@ -56,6 +62,8 @@ public class JobMaster {
         }
       }
       System.out.println("start shutdown es");
+      System.out.println(overall.size());
+
       es.shutdownNow();
 //      try {
 //        latch.await();
@@ -74,7 +82,10 @@ public class JobMaster {
       while (jobStatus || !queue.isEmpty()) {
         System.out.println("working thread is still alive");
         Map<String, Object> result = queue.poll();
-        System.out.println(result);
+        if(result!=null){
+            System.out.println(result);
+            overall.add(result);
+        }
       }
 
     }
