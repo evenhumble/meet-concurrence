@@ -16,13 +16,10 @@ public class MTUtil {
   public static synchronized void makeLoad(){
     if(isLoadMade) return;
     for (int i = 0; i < THREAD_COUNT; i++) {
-      es.submit(new Runnable() {
-        @Override
-        public void run() {
-          for (int i = 1; ; ++i) {
-            if (i % 1000000 == 0) {
-              sleep(1);
-            }
+      es.submit((Runnable) () -> {
+        for (int i1 = 1; ; ++i1) {
+          if (i1 % 1000000 == 0) {
+            sleep(1);
           }
         }
       });

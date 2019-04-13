@@ -23,7 +23,6 @@ public class JobMaster {
   public int batchSize = 30;
   public ConcurrentLinkedQueue<Map<String, Object>> queue = new ConcurrentLinkedQueue<>();
   ExecutorService es;
-  private static CountDownLatch latch = new CountDownLatch(5);
 
   public class FetchDataWorker extends Thread {
 

@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author: patrick on 2019-02-24
  * @Description:
+ * CountDownLatch replace notify and wait
+ * await and countdown
  */
 public class ContainerLatch {
 

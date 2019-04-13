@@ -1,8 +1,8 @@
-package io.hedwig.concurrence.basic.issues;
+package io.hedwig.concurrence.basic.issues.reentrant;
 
 import java.util.concurrent.TimeUnit;
 
-public class ReentrantLock1 {
+public class SyncIssue {
 
   synchronized void m1() {
     for (int i = 0; i < 10; i++) {
@@ -24,7 +24,7 @@ public class ReentrantLock1 {
   }
 
   public static void main(String[] args) {
-    ReentrantLock1 r1 = new ReentrantLock1();
+    SyncIssue r1 = new SyncIssue();
     new Thread(r1::m1).start();
     new Thread(r1::m3).start();
     try {
