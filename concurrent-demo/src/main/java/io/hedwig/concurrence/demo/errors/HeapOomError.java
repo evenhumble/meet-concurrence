@@ -1,4 +1,4 @@
-package io.hedwig.concurrence.basic.errors;
+package io.hedwig.concurrence.demo.errors;
 
 import java.util.ArrayList;
 import java.util.List;
