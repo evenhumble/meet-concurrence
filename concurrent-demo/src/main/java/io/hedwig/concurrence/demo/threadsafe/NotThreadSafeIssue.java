@@ -1,6 +1,7 @@
-package io.hedwig.concurrence.basic.safe;
+package io.hedwig.concurrence.demo.threadsafe;
 
-import net.jcip.annotations.NotThreadSafe;
+
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
  * @author: patrick on 2019-01-26
@@ -12,9 +13,10 @@ public class NotThreadSafeIssue {
   private static int count = 0;
 
   public static void main(String[] args) {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
       new Thread(() -> {
-        System.out.println(Thread.currentThread().getName() + ":" + count++);
+        count++;
+        System.out.println(Thread.currentThread().getName() + ":" + count);
       }).start();
     }
   }
