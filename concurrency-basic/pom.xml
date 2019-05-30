@@ -9,12 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <jmh.version>1.21</jmh.version>
+    </properties>
     <artifactId>concurrency-basic</artifactId>
     <dependencies>
         <!--<dependency>-->
-            <!--<groupId>com.amazonaws</groupId>-->
-            <!--<artifactId>aws-java-sdk-core</artifactId>-->
-            <!--<version>1.11.500</version>-->
+        <!--<groupId>com.amazonaws</groupId>-->
+        <!--<artifactId>aws-java-sdk-core</artifactId>-->
+        <!--<version>1.11.500</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -32,7 +35,34 @@
             <version>4.12</version>
             <!--<scope>test</scope>-->
         </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <fork>true</fork>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <executable><!-- path-to-javac --></executable>
+                    <compilerVersion>1.8</compilerVersion>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
