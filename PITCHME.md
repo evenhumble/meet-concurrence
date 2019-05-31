@@ -31,10 +31,12 @@ public class NotThreadSafeIssue {
 The program expected that every thread
 read a number which increased by itself,but the actual result is not in that
 way, the thread 10 and 11 the value is increased by other thread.It is not thread safe.
-
+So the data is ***inconsistency***.
 ```java
 Thread-10:12
 Thread-11:12
 Thread-12:13
 Thread-13:14
 ```
+
+----
